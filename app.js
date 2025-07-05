@@ -16,38 +16,100 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Root welcome route
 app.get('/', (req, res) => {
-  res.status(200).json({
-    message: '🎉 Welcome to the AssetVault Backend API!',
-    info: 'Use Postman or a similar API client to test the endpoints.',
-    documentation: 'https://www.notion.so/AssetVault-API-Backend-Documentation-2275ecb9621a806eac75f6393c4e0f3b',
-    base_url: 'https://assetvault-backend.onrender.com',
-    endpoints: {
-      Users: {
-        createAccount: 'POST https://assetvault-backend.onrender.com/users/register',
-        login: 'POST https://assetvault-backend.onrender.com/users/login'
-      },
-      Assets: {
-        create: 'POST https://assetvault-backend.onrender.com/assets',
-        getAll: 'GET https://assetvault-backend.onrender.com/assets',
-        getById: 'GET https://assetvault-backend.onrender.com/assets/:id',
-        delete: 'DELETE https://assetvault-backend.onrender.com/assets/:id'
-      },
-      Transactions: {
-        create: 'POST https://assetvault-backend.onrender.com/transactions',
-        getAll: 'GET https://assetvault-backend.onrender.com/transactions',
-        getById: 'GET https://assetvault-backend.onrender.com/transactions/:id'
-      },
-      Reports: {
-        summary: 'GET https://assetvault-backend.onrender.com/reports'
-      },
-      Analytics: {
-        graphs: 'GET https://assetvault-backend.onrender.com/analytics/graphs'
-      }
-    }
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>AssetVault API</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f8fb;
+            color: #333;
+            margin: 0;
+            padding: 2rem;
+          }
+          h1 {
+            color: #007bff;
+          }
+          code {
+            background-color: #eaeaea;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+          }
+          .endpoint-group {
+            margin-top: 1.5rem;
+          }
+          .endpoint-group h3 {
+            color: #444;
+          }
+          .endpoint {
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+          }
+          a {
+            color: #007bff;
+            text-decoration: none;
+          }
+          a:hover {
+            text-decoration: underline;
+          }
+          .footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: #888;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>🎉 Welcome to the AssetVault Backend API</h1>
+        <p>Use <strong>Postman</strong> or a similar API client to test the endpoints.</p>
+        <p>📘 <a href="https://www.notion.so/AssetVault-API-Backend-Documentation-2275ecb9621a806eac75f6393c4e0f3b" target="_blank">View API Documentation</a></p>
+        <p><strong>Base URL:</strong> <code>https://assetvault-backend.onrender.com</code></p>
+  
+        <div class="endpoint-group">
+          <h3>🔐 Users</h3>
+          <div class="endpoint"><code>POST /users/register</code> - Create an account</div>
+          <div class="endpoint"><code>POST /users/login</code> - Login</div>
+        </div>
+  
+        <div class="endpoint-group">
+          <h3>💼 Assets</h3>
+          <div class="endpoint"><code>POST /assets</code> - Create an asset</div>
+          <div class="endpoint"><code>GET /assets</code> - Get all assets</div>
+          <div class="endpoint"><code>GET /assets/:id</code> - Get asset by ID</div>
+          <div class="endpoint"><code>DELETE /assets/:id</code> - Delete asset by ID</div>
+        </div>
+  
+        <div class="endpoint-group">
+          <h3>💰 Transactions</h3>
+          <div class="endpoint"><code>POST /transactions</code> - Create a transaction</div>
+          <div class="endpoint"><code>GET /transactions</code> - Get all transactions</div>
+          <div class="endpoint"><code>GET /transactions/:id</code> - Get transaction by ID</div>
+        </div>
+  
+        <div class="endpoint-group">
+          <h3>📊 Reports</h3>
+          <div class="endpoint"><code>GET /reports</code> - Get system summary report</div>
+        </div>
+  
+        <div class="endpoint-group">
+          <h3>📈 Analytics</h3>
+          <div class="endpoint"><code>GET /analytics/graphs</code> - Get dashboard analytics</div>
+        </div>
+  
+        <div class="footer">
+          Built with ❤️ by Brian Yabuin Rinda — AssetVault API v1.0
+        </div>
+      </body>
+      </html>
+    `);
   });
-});
+  
 
 // Routes
 app.use('/users', userRoutes);
